@@ -45,8 +45,8 @@ int main()
         exit(1);
     }
     cout << "\nENTER MESSAGE\n";
-    fflush(stdin);
-    cin >> msg;
+    cin.ignore();
+    cin.getline(msg, sizeof(msg));
     for (i = 0; msg[i] != '\0'; i++)
         m[i] = msg[i];
     n = p * q;

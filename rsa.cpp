@@ -2,16 +2,11 @@
 #include <math.h>
 #include <string.h>
 #include <stdlib.h>
-
 using namespace std;
 
 long int p, q, n, t, flag, e[100], d[100], temp[100], j, m[100], en[100], i;
 char msg[100];
-int prime(long int);
-void ce();
-long int cd(long int);
-void encrypt();
-void decrypt();
+
 int prime(long int pr)
 {
     int i;
@@ -23,39 +18,18 @@ int prime(long int pr)
     }
     return 1;
 }
-int main()
+
+long int cd(long int x)
 {
-    cout << "\nENTER FIRST PRIME NUMBER\n";
-    cin >> p;
-    flag = prime(p);
-    if (flag == 0)
+    long int k = 1;
+    while (1)
     {
-        cout << "\nWRONG INPUT\n";
-        exit(1);
+        k = k + t;
+        if (k % x == 0)
+            return (k / x);
     }
-    cout << "\nENTER ANOTHER PRIME NUMBER\n";
-    cin >> q;
-    flag = prime(q);
-    if (flag == 0 || p == q)
-    {
-        cout << "\nWRONG INPUT\n";
-        exit(1);
-    }
-    cout << "\nENTER MESSAGE\n";
-    fflush(stdin);
-    cin >> msg;
-    for (i = 0; msg[i] != '\0'; i++)
-        m[i] = msg[i];
-    n = p * q;
-    t = (p - 1) * (q - 1);
-    ce();
-    cout << "\nPOSSIBLE VALUES OF e AND d ARE\n";
-    for (i = 0; i < j - 1; i++)
-        cout << e[i] << "\t" << d[i] << "\n";
-    encrypt();
-    decrypt();
-    return 0;
 }
+
 void ce()
 {
     int k;
@@ -79,16 +53,7 @@ void ce()
         }
     }
 }
-long int cd(long int x)
-{
-    long int k = 1;
-    while (1)
-    {
-        k = k + t;
-        if (k % x == 0)
-            return (k / x);
-    }
-}
+
 void encrypt()
 {
     long int pt, ct, key = e[0], k, len;
@@ -114,6 +79,7 @@ void encrypt()
     for (i = 0; en[i] != -1; i++)
         printf("%c", en[i]);
 }
+
 void decrypt()
 {
     long int pt, ct, key = d[0], k;
@@ -135,4 +101,38 @@ void decrypt()
     cout << "\nTHE DECRYPTED MESSAGE IS\n";
     for (i = 0; m[i] != -1; i++)
         printf("%c", m[i]);
+}
+
+int main()
+{
+    cout << "\nENTER FIRST PRIME NUMBER\n";
+    cin >> p;
+    flag = prime(p);
+    if (flag == 0)
+    {
+        cout << "\nWRONG INPUT\n";
+        exit(1);
+    }
+    cout << "\nENTER ANOTHER PRIME NUMBER\n";
+    cin >> q;
+    flag = prime(q);
+    if (flag == 0 || p == q)
+    {
+        cout << "\nWRONG INPUT\n";
+        exit(1);
+    }
+    cout << "\nENTER MESSAGE\n";
+    cin.ignore();
+    cin.getline(msg, sizeof(msg));
+    for (i = 0; msg[i] != '\0'; i++)
+        m[i] = msg[i];
+    n = p * q;
+    t = (p - 1) * (q - 1);
+    ce();
+    cout << "\nPOSSIBLE VALUES OF e AND d ARE\n";
+    for (i = 0; i < j - 1; i++)
+        cout << e[i] << "\t" << d[i] << "\n";
+    encrypt();
+    decrypt();
+    return 0;
 }
